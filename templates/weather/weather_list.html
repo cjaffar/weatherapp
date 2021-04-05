@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}Weather{% endblock title %}
+
+{% block sidebar %}
+    {% include 'includes/left_sidebar.html' %}
+{% endblock sidebar %}
+
+{% block content %}
+
+        <div class="container-fluid">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h5>Weather Forecast for your City.</h5>
+                      {% if city %}
+                      <span>{{ city.name }} | <a href="{% url 'index' %}" class="btn btn-air-gradient">all</a></span>
+                      {% else %}
+                      <span>All Mzansi cities</span>
+                      {% endif %}
+
+                    {% if not object_list %}
+                        <div class="alert alert-danger mt-4">
+                            Weather forecast for select city not found.
+                            <br />Please ask your Admin to crawl the requested city {% if city %}, give them the following info cityid={{ city.pk }}{% endif %}
+                        </div>
+                    {% endif %}
+
+                  </div>
+                  <div class="table-responsive p-4">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">City</th>
+                          <th scope="col">Date</th>
+                          <th scope="col">Minimum Temp</th>
+                          <th scope="col">Maximum Temp</th>
+                          <th scope="col">Rain</th>
+                          <th scope="col">Wind Speed</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for item in object_list %}
+                        <tr>
+                          <th scope="row">{{ item.city }}</th>
+                          <td>{{ item.date|date:"j M Y" }}</td>
+                          <td>{{ item.min_temp }}</td>
+                          <td>{{item.max_temp }}</td>
+                          <td>{{ item.rain|upper }}</td>
+                          <td>{{ item.wind_speed }}</td>
+                        </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+{% endblock content %}
+
+{% block js %}
+    <script type="text/javascript">
+$(document).ready( function () {
+    $('.table').DataTable();
+} );
+</script>
+{% endblock js %}

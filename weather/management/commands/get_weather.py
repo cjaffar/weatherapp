@@ -22,7 +22,8 @@ class Command(BaseCommand):
         url = 'https://api.openweathermap.org/data/2.5/onecall'
         params = { 'exclude' : 'hourly,current', 'appid': api_key }
 
-        city = City.active.filter(cityid=cityid).first()
+        city = City.active.all().order_by('?') #filter(cityid=cityid).first()
+        city = city.first()
 
         if not city :
             self.stdout.write(self.style.ERROR('City ID not found or CityID is not in South Africa'))

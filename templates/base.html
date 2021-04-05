@@ -1,10 +1,87 @@
+{% load static compress %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>{% block title %}{% endblock title %} | Deviare Demo </title>
+    {% compress css %}
+        <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
+        <link rel="stylesheet" href="{% static 'css/default.css' %}" />
+    {% endcompress %}
+
+    <lik refl="stylesheet" href="//cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" />
 </head>
 <body>
 
+<div class="page-wrapper">
+
+    <!-- page header -->
+    <div class="page-main-header">
+        <div class="main-header-right">
+          <div class="main-header-left text-center">
+            <div class="logo-wrapper"><a href="/"><img src="//recruitment.deviare.co.za/static/media/deviare-logo-footer.e0b1f27d.svg" alt="Deviare LOGO" width="112" height="35" /></a></div>
+          </div>
+          <div class="mobile-sidebar">
+            <div class="media-body text-right switch-sm">
+{#              <label class="switch ml-3"><i class="font-primary" id="sidebar-toggle" data-feather="align-center"></i>#}
+{#              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-align-center font-primary" id="sidebar-toggle"><line x1="18" y1="10" x2="6" y2="10"></line><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="18" y1="18" x2="6" y2="18"></line></svg>#}
+{#              </label>#}
+            </div>
+          </div>
+{#          <div class="vertical-mobile-sidebar"><i class="fa fa-bars sidebar-bar">               </i></div>#}
+          <div class="nav-right col pull-right right-menu">
+            <ul class="nav-menus">
+              <li class="text-left">
+                  {% if user.is_authenticated %}
+                  Welcome {{ user.username }}
+                    <a href="{% url 'logout' %}" class="btn btn-light-gradien">Logout</a>
+                  {% else %}
+                    Please login
+                  {% endif %}
+              </li>
+{#              <li><a class="right_side_toggle" href="#"><img class="img-fluid img-shadow-success" src="../assets/images/dashboard/chat.png" alt=""></a></li>#}
+            </ul>
+          </div>
+        </div>
+      </div>
+    <!-- endpage header -->
+
+    <div class="page-body-wrapper">
+
+        {% block sidebar %}
+            <div class="iconsidebar-menu"></div>
+        {% endblock sidebar %}
+
+        <div class="page-body">
+            {% block content %}
+
+            {% endblock content %}
+        </div>
+
+        <footer class="footer">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-6 footer-copyright">
+                <p class="mb-0">Copyright &copy{% now 'Y' %} Deviare. All rights reserved.</p>
+              </div>
+              <div class="col-md-6">
+                <p class="pull-right mb-0">Offerzen Assignment<i class="fa fa-heart"></i></p>
+              </div>
+            </div>
+          </div>
+        </footer>
+
+    </div>
+
+</div>
+
+{% compress js %}
+    <script type="text/javascript" src="{% static '/js/jquery.js' %}"></script>
+    <script type="text/javascript" src="{% static '/js/bootstrap.js' %}"></script>
+    <script type="text/javascript" src="//cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+{% endcompress %}
+{% block js %}{% endblock js %}
 </body>
 </html>

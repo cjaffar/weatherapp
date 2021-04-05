@@ -13,8 +13,11 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
+
+from weather.views import Home
 
 from django.http import HttpResponse
 #TODO remove this to properly include a url.
@@ -23,5 +26,9 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('weather/', include('weather.urls')),
     path('admin/', admin.site.urls),
-    path('', lambda request: HttpResponse('the cow jumped over the moon'))
+    path('', Home.as_view(), name='home'),
 ]
+
+if settings.DEBUG:
+    from django.conf.urls.static import static
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT / 'static')

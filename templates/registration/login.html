@@ -1,1 +1,64 @@
-<h1>HELLO WORLD</h1>
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock title %}
+
+{% block content %}
+<div class="page-wrapper">
+      <div class="container-fluid p-0">
+        <!-- login page start-->
+        <div class="authentication-main">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="auth-innerright">
+                <div class="authentication-box">
+                  <div class="card-body p-0">
+                    <div class="cont text-center">
+                      <div>
+                        <form class="theme-form col" method="post" action="{% url 'login-override' %}">
+                            {% csrf_token %}
+                          <h4>LOGIN</h4>
+
+                            {% if form.errors %}
+                                <div class="alert alert-danger">
+                                    <ul
+                                        {% for key,message in form.errors.items %}
+                                            <li>{{ message }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% elif messages %}
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        {% for message in messages %}
+                                            <li>{{ message }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% endif %}
+
+                          <h6 class="m-4">Enter your Username and Password</h6>
+                          <div class="form-group">
+                            <label class="col-form-label pt-0">Your Name</label>
+                            <input class="form-control text-center" type="text" required="" name="username" />
+                          </div>
+                          <div class="form-group">
+                            <label class="col-form-label">Password</label>
+                            <input class="form-control text-center" type="password" required="" name="password" />
+                          </div>
+                          <div class="form-group form-row mt-3 mb-0">
+                            <button class="btn btn-primary btn-block" type="submit">LOGIN</button>
+                          </div>
+                        </form>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- login page end-->
+      </div>
+    </div>
+{% endblock content %}

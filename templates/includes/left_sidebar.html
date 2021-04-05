@@ -1,0 +1,24 @@
+{% block content %}
+
+<div class="iconsidebar-menu">
+          <div class="sidebar">
+            <ul class="iconMenu-bar custom-scrollbar">
+              <li class="open"><a class="bar-icons" href="javascript:void(0)">
+                  <i class="pe-7s-home"></i><span>Cities    </span></a>
+                <ul class="iconbar-mainmenu custom-scrollbar">
+                    {% for city in cities %}
+                    <li>
+                        <a href="{% url 'city_weather' city.pk %}">
+                            {{ city.name }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+              </li>
+
+            </ul>
+          </div>
+        </div>
+
+
+{% endblock content %}
