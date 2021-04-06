@@ -32,3 +32,7 @@ urlpatterns = [
 if settings.DEBUG:
     from django.conf.urls.static import static
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT / 'static')
+
+admin.site.site_header = "Deviare Backend"
+admin.site.site_title = "Deviare Backend Portal"
+admin.site.index_title = "Welcome to Deviare Assessment Backend"

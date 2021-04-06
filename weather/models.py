@@ -22,6 +22,7 @@ class City(models.Model) :
 
     class Meta:
         ordering=('name',)
+        verbose_name_plural='Cities'
 
     def __str__(self):
         return self.name
@@ -43,6 +44,7 @@ class Weather(models.Model) :
     class Meta:
         ordering=('city',)
         unique_together=['city','date']
+        verbose_name_plural='Weather'
 
     def __str__(self):
         return self.city.name
